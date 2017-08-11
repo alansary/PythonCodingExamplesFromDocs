@@ -1,0 +1,36 @@
+# Windows
+    https://www.python.org/downloads/windows/
+    # Latest Python 3 Release - Python 3.5.2
+        # Python 3.5.2 - 2016-06-27
+            # Windows x86-64 executable installer
+                https://www.python.org/ftp/python/3.5.2/python-3.5.2-amd64.exe
+# Linux
+# Python 3 is installed by default
+# python3 -V
+# sudo apt-get install idle-python3.5
+# sudo apt-get install python3
+    https://www.python.org/downloads/source/
+    # Latest Python 3 Release - Python 3.5.2
+        # Python 3.5.2 - 2016-06-27
+            # Gzipped source tarball
+                https://www.python.org/ftp/python/3.5.2/Python-3.5.2.tgz
+
+# Eclipse
+http://www.eclipse.org/downloads/eclipse-packages/
+# Eclipse IDE for C/C++ Developers (Linux)
+    http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/neon/R/eclipse-cpp-neon-R-linux-gtk-x86_64.tar.gz
+    http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/neon/R/eclipse-cpp-neon-R-linux-gtk.tar.gz
+# Eclipse IDE for C/C++ Developers (Windows)
+    http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/neon/R/eclipse-cpp-neon-R-win32-x86_64.zip
+    http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/neon/R/eclipse-cpp-neon-R-win32.zip
+
+# Pydev
+    Help -> Install New Software -> Available Software Sites -> Add -> Pydev & http://pydev.org/updates -> Ok -> Ok
+    Work with -> Pydev -> Select PyDev -> Next -> Select PyDev for Eclipse -> Next -> I accept -> Finish
+    Security Warning -> Ok -> Yes
+# Setting Up Pydev
+    Eclipse -> Preferences -> Pydev -> Interpreter - Python -> New -> Browse -> /usr/local/bin/Python3.5 -> Ok (Or Auto Config)
+    Eclipse -> Preferences -> Pydev -> Editor -> Hover -> Un-Check show docstrings?
+    Eclipse -> Preferences -> General -> Editors -> Test Editors -> Check Show line numbers
+# Python Documentation
+    https://docs.python.org/3.5/

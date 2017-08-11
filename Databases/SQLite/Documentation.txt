@@ -1,0 +1,239 @@
+### Terminal Commands ###
+    'which PROGRAM' - reveals the installation directory
+    'file FILE_NAME' - reveals the type of the file
+    'history | grep SEARCH_KEY' - reveals the commands contain the SEARCH_KEY from the history of the terminal
+    'sed 's/old/new/g' old_file > new_file' - You sed to substitute new for old in old_file, do it globally and save results to new_file
+    'ls -l FILE_NAME' - examine FILE size (in bytes)
+
+### BASH Scripting ###
+    ECHO
+        echo hello
+    VARIABLES
+        - Preceded by $
+    LOOPS
+        for i in `seq NUMBER_OF_ITERATIONS`; do echo Hello World! $i; done - Loops from 1 up to NUMBER_OF_ITERATIONS
+        for i in `seq NUMBER_OF_ITERATIONS`; do sqlite3 db "INSERT INTO DATABASE_NAME (ROW_NAME) VALUES (\"INPUT_DATA\");"; done
+            - Any text must be enclosed within \"TEXT\"
+    PERMISSIONS
+        chmod +x *.sh - Execute Permissions
+        chmod 754 *.sh - Executable only for us
+
+### Notes ###
+    - While writing, Error: database is locked will occur when attempt to read
+    - While reading, Error: database is locked will occur when attempt to write
+    - Multiple users can read from the database simultaneously
+
+### Create New DB ###
+    'sqlite3 DB_NAME' - enters interactive terminal monitor
+
+### SQLite Interactive Interface ###
+.help                  Show this message
+.databases             List names and files of attached databases
+.tables ?TABLE?        List names of tables
+                         If TABLE specified, only list tables matching
+                         LIKE pattern TABLE.
+.dump ?TABLE? ...      Dump the database in an SQL text format
+                         If TABLE specified, only dump tables matching
+                         LIKE pattern TABLE.
+.schema ?PATTERN?      Show the CREATE statements matching PATTERN
+                          Add --indent for pretty-printing
+.backup ?DB? FILE      Backup DB (default "main") to FILE
+                        - The file will be truncated if it does exist
+.restore ?DB? FILE     Restore content of DB (default "main") from FILE
+                       Restorations resets the selected DB (default 'main' DB) to the contents of the FILE,
+                       reclaiming unused space as needed.
+.show                  Show the current values for various settings
+                           - Default configuration dumps data-set to stdout
+                           - Default output mode is 'list'
+.mode MODE ?TABLE?     Set output mode where MODE is one of:
+                         insert   SQL insert statements for TABLE
+                            .mode insert [TABLE_NAME]
+                                - default TABLE_NAME is table
+                            SELECT * FROM TABLE_NAME;
+                                - prints the INSERT statements of all the rows in this table
+                         csv      Comma-separated values
+                         html     HTML <table> code
+                         list     Values delimited by .separator strings
+                         line     One value per line
+                         tabs     Tab-separated values
+                         column   Left-aligned columns.  (See .width)
+                         ascii    Columns/rows delimited by 0x1F and 0x1E
+                         tcl      TCL list elements
+.separator "COL" ?"ROW"?   Change the column separator and optionally the row
+                         separator for both the output mode and .import
+.output ?FILENAME?     Send output to FILENAME or stdout
+                        - You can use any extension for this file and open the file with any text editor, i.e. vim
+                        - The file will be truncated if it does exist
+.import FILE TABLE     Import data from FILE into TABLE
+                        - Create the file with desired field separator
+                        - '.import FILE TABLE' - imports data from Flat-File
+                        - Ensure that '.separator' matches data file
+                        - Transform Delimiters
+                            'sed 's/old/new/g' old_file > new_file'
+                                - You sed to substitute new for old in old_file, do it globally and save results to new_file
+.quit                  Exit this program
+.exit                  Exit this program
+
+.auth ON|OFF           Show authorizer callbacks
+.bail on|off           Stop after hitting an error.  Default OFF
+.binary on|off         Turn binary output on or off.  Default OFF
+.changes on|off        Show number of rows changed by SQL
+.clone NEWDB           Clone data into NEWDB from the existing database
+.dbinfo ?DB?           Show status information about the database
+.echo on|off           Turn command echo on or off
+.eqp on|off|full       Enable or disable automatic EXPLAIN QUERY PLAN
+.explain ?on|off|auto? Turn EXPLAIN output mode on or off or to automatic
+.fullschema ?--indent? Show schema and the content of sqlite_stat tables
+.headers on|off        Turn display of headers on or off
+.indexes ?TABLE?       Show names of all indexes
+                         If TABLE specified, only show indexes for tables
+                         matching LIKE pattern TABLE.
+.limit ?LIMIT? ?VAL?   Display or change the value of an SQLITE_LIMIT
+.load FILE ?ENTRY?     Load an extension library
+.log FILE|off          Turn logging on or off.  FILE can be stderr/stdout
+.nullvalue STRING      Use STRING in place of NULL values
+.once FILENAME         Output for the next SQL command only to FILENAME
+.open ?FILENAME?       Close existing database and reopen FILENAME
+.print STRING...       Print literal STRING
+.prompt MAIN CONTINUE  Replace the standard prompts
+.read FILENAME         Execute SQL in FILENAME
+.save FILE             Write in-memory database into FILE
+.scanstats on|off      Turn sqlite3_stmt_scanstatus() metrics on or off
+.shell CMD ARGS...     Run CMD ARGS... in a system shell
+.stats ?on|off?        Show stats or turn stats on or off
+.system CMD ARGS...    Run CMD ARGS... in a system shell
+.timeout MS            Try opening locked tables for MS milliseconds
+.timer on|off          Turn SQL timer on or off
+.trace FILE|off        Output each SQL statement as it is run
+.vfsinfo ?AUX?         Information about the top-level VFS
+.vfslist               List all available VFSes
+.vfsname ?AUX?         Print the name of the VFS stack
+.width NUM1 NUM2 ...   Set column widths for "column" mode
+                         Negative values right-justify
+
+### Command Line Interface (CLI) ###
+    Usage: sqlite3 [OPTIONS] FILENAME ["SQL"/SQLite ### Separated by spaces ###]
+    FILENAME is the name of an SQLite database. A new database is created
+    if the file does not previously exist.
+    OPTIONS include:
+       -help                show this message
+       -version             show SQLite version
+       -separator SEP       set output column separator. Default: '|'
+       -newline SEP         set output row separator. Default: '\n'
+       -list                set output mode to 'list'
+       -column              set output mode to 'column'
+       -html                set output mode to HTML
+       -csv                 set output mode to 'csv'
+       -ascii               set output mode to 'ascii'
+       -echo                print commands before execution
+
+       -bail                stop after hitting an error
+       -batch               force batch I/O
+       -cmd COMMAND         run "COMMAND" before reading stdin
+       -init FILENAME       read/process named file
+       -[no]header          turn headers on or off
+       -interactive         force interactive I/O
+       -line                set output mode to 'line'
+       -lookaside SIZE N    use N entries of SZ bytes for lookaside memory
+       -mmap N              default mmap size set to N
+       -nullvalue TEXT      set text string for NULL values. Default ''
+       -pagecache SIZE N    use N slots of SZ bytes each for page cache memory
+       -scratch SIZE N      use N slots of SZ bytes each for scratch memory
+       -stats               print memory stats before each finalize
+       -vfs NAME            use NAME as the default VFS
+
+### Dump output to file ###
+    sqlite3 DATABASE_NAME "SQL"/SQLite > NEW_FILE
+
+### Data Types & Manifest Typing ###
+    - Type Affinity rules are NOT enforced per-column
+    - 'INTEGER PRIMARY KEY' columns (auto-incrementing) are constrained by 'INTEGER' data class (type) definition - 64-bit signed
+    - 'INTEGER PRIMARY KEY' is an alias to 'rowid'
+    -  Column 'id' is merely an alias to 'rowid'
+    - Data Types (Classes)
+        TEXT - Various UTF[8, 16] Types - Assigned if type specified is: *CHAR*, TEXT, *CLOB*, etc.
+        INTEGER - 1, 2, 3, 4, 6, or 8 - bytes - depends on presented value
+            - i.e. If signed, then range: -9ExaBytes through +9EB, If unsigned, then range: + 18EB
+        REAL - 8-byte (64-bit)  floating point - *REAL, *FLOAT*, *DOUB*, etc.
+        BLOB - byte-blobs: i.e. images, PDFs, etc. - facillitates serving content directly from the DB
+        NUMERIC
+        NULL - undefined (No Data)
+        NONE - No type affinity associated with column (No Type)
+            - Booleans are handled as: INTEGER [0, 1]
+            - Dates are stored as: TEXT, REAL, INTEGER (i.e. Unix epoch), or NUMERIC - depending on the presentation of the date
+
+### SQL Commands and Queries (DDL and DML) ###
+    'SELECT * FROM sqlite_master;' - reveals the tables that are defined (INTERNAL PROTECTED SCHEMA)
+    'CREATE TABLE TABLE_NAME (COLUMN_NAME COLUMN_TYPE, ...);'
+    'INSERT INTO TABLE_NAME (COL1_NAME, COL2_NAME, ...) VALUES (VAL1, VAL2, ...);'
+    'INSERT INTO TABLE_NAME VALUES (VAL1, VAL2, ..., VALN);'
+    'SELECT * FROM TABLE_NAME;'
+    'SELECT ROW1[, ROW2, ...] FROM TABLE_NAME;'
+    'SELECT ROW1[, ROW2, ...] FROM TABLE_NAME WHERE CONDITION_ON_DATA;'
+    'ALTER TABLE TABLE_NAME ADD COLUMN COLUMN_NAME COLUMN_TYPE;'
+    'UPDATE TABLE_NAME SET COLUMN_NAME = COLUMN_VALUE, COLUMN_NAME = COLUMN_VALUE, ... WHERE CONDITION;'
+    'DROP TABLE TABLE_NAME;'
+        - Size before and size post Table-Drop are the same !
+            - Use 'VACUUM;' to Try to Reclaim File System Storage
+    'DELETE FROM TABLE_NAME;' - removes records - truncates table
+        - Size before and size post Table-Truncation are the same !
+            - Use 'VACUUM;' to Try to Reclaim File System Storage
+    'DELETE FROM TABLE_NAME WHERE CONDITION;'
+    'VACUUM;'
+
+### Views ###
+    - Reduces presented tabular data to interesting columns
+        'CREATE [TEMP] VIEW IF NOT EXISTS VIEW_NAME AS SELECT ROW1, ROW2, ..., ROWN FROM TABLE_NAME;'
+        'SELECT * FROM VIEW_NAME;'
+        '.schema'
+        '.tables'
+    - Unless 'temp[orary]' is used to define the VIEW, the VIEW will be a permanent artifact of your DB
+        'DROP VIEW IF EXISTS VIEW_NAME;'
+
+### Attach | Detach DBs ###
+    'ATTACH DATABASE DB_PATH AS DB_ALIAS;'
+        - DB_ALIAS (Alias - cannot be called: 'main' or 'temp')
+    '.databases'
+    '.tables'
+    'SELECT * FROM DB_ALIAS.TABLE_NAME;'
+    OR
+    'SELECT * TABLE_NAME;' - Case the names of tables are unique
+       - Queries may now be executed against All attached DBs
+       - If table names are NOT unique, you MUST qualify them with the DB prefix
+    'DETACH DATABASE DB_ALIAS;'
+    '.databases'
+    '.tables'
+
+### SQL Functions ###
+    TYPEOF(ROW_NAME) -> returns the type of data in a given row
+        'SELECT TYPEOF(ROW_NAME) FROM TABLE_NAME;'
+
+### Tasks ###
+    Export TO MySQL
+        First Method (.output & .schema & .mode & SELECT & cat):
+            .tables
+                table1, table2, ..., tablen
+            .output SQLQueries
+            .schema
+            .mode insert table1
+            SELECT * FROM table1;
+            .mode insert table2
+            SELECT * FROM table2;
+            .
+            .
+            .
+            .mode insert tablen
+            SELECT * FROM tablen;
+            .quit
+
+            cat SQLQueries | mysql -h HOST -p DATABASE_NAME
+        Second Method (Dump SQLite data in SQL Syntax):
+            sqlite3 SQLite_DATABASE_NAME .dump | mysql -h HOST -p MySQL_DATABASE_NAME
+        Third Method (.dump & cleanup):
+            sqlite3 DATABASE_NAME .dump - generates SQL code - some cleanup may be necessary
+            OR
+            .output main SQLQueries
+            .dump
+                - some cleanup may be necessary
+    Dump MySQL data to SQL Syntax for importation - may need cleanup
+        mysqldump -p -h HOST -u USER DB [table] > FILE - cleanup, then import with 'sqlite3'
